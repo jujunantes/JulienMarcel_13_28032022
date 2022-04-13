@@ -1,28 +1,12 @@
 import PiedDePage from "../../composants/PiedDePage"
 import '../../styles/main.css'
-import { useRef, useState } from 'react'
 import { profile } from '../../utils/sliceUtilisateur'
 
 function Connexion() {
-    const email = useRef();
-    const password = useRef();
-    const [error, setError] = useState(false);
-    const dispatch = useDispatch();
-    const history = useHistory();
+
 
     const envoiConnexion = (e) => {
-        e.preventDefault()
-        const dataForm = {
-            email: email.current.value,
-            password: password.current.value
-        }
-        Axios('login', dataForm)
-            .then((userData) => {
-                SetUserData(userData)
-            })
-            .catch(() => {
-                setError(true)
-            })
+
     }
 
   return (
