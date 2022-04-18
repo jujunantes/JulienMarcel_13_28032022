@@ -1,12 +1,31 @@
 import PiedDePage from "../../composants/PiedDePage"
 import '../../styles/main.css'
-import { profile } from '../../utils/sliceUtilisateur'
+import { login } from '../../features/User/sliceUtilisateur'
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { useDispatch } from 'react-redux'
+import axios from "axios"
 
-function Connexion() {
 
+export default function Connexion() {
+    const [donnees, modifDonnees] = useState({ email: '', password: '' })
+    const [erreur,setError]= useState("")
 
-    const envoiConnexion = (e) => {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
+    const envoiConnexion = async (e) => {
+        e.preventDefault()
+        try{
+            const url = 'http://localhost:3001/api/v1/user/login'
+            const {data: res} = await axios.post(url, donnees)
+            dispatch(login({...donnees, token:res.body.token }))
+            navigate('/profil')
+        } catch (error){
+            if(error.response && error.response.status >= 400 && error.response.status <= 500 ){
+                setError(error.response.data.message)
+            }
+        }
     }
 
   return (
@@ -18,20 +37,15 @@ function Connexion() {
                 <form onSubmit={envoiConnexion}>
                     <div className="input-wrapper">
                         <label htmlFor="username">Username</label>
-                        <input type="text" id="username" />
+                        <input type="email" name="email" id="username" onChange={event => modifDonnees({ ...donnees, [event.target.name]: event.target.value })} />
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="password">Password</label>
-                        <input type="password" id="password" />
+                        <input type="password" name="password" id="password" onChange={event => modifDonnees({ ...donnees, [event.target.name]: event.target.value })} />
                     </div>
                     <div className="input-remember">
                         <input type="checkbox" id="remember-me" /><label htmlFor="remember-me">Remember me</label>
                     </div>
-                    {/*<!-- PLACEHOLDER DUE TO STATIC SITE -->*
-                    <a href="./user.html" className="sign-in-button">Sign In</a>/}
-                    {/*<!-- SHOULD BE THE BUTTON BELOW -->
-                    <!-- <button className="sign-in-button">Sign In</button> -->
-                    <!--  -->*/}
                     <input
                         type="submit"
                         value="Sign In"
@@ -44,5 +58,3 @@ function Connexion() {
     </div>
   )
 }
-
-export default Connexion

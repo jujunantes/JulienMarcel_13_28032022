@@ -1,18 +1,24 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice  } from '@reduxjs/toolkit'
 
 const sliceUtilisateur = createSlice({
   // le nom du slice
   name: 'user',
   // le state initial
   initialState: {
-    user: {},
+    prenom : '',
+    nom: '',
+    email: '',
+    password: '',
     token: '',
-    connected: false,
+    connected: false
   },
   // reducers permet de définir les actions et le reducer
   reducers: {
     login: (state, action) => {
-      state.token = action.payload
+      console.log(action)
+      state.email = action.payload.email
+      state.token = action.payload.token
+      state.connected = true
     },
     logout: (state) => {
       state.connected = false
