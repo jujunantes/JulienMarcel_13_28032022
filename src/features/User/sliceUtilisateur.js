@@ -5,34 +5,34 @@ const sliceUtilisateur = createSlice({
   name: 'user',
   // le state initial
   initialState: {
-    prenom : '',
-    nom: '',
-    email: '',
-    password: '',
-    token: '',
-    connected: false
+    firstName : '',
+    lastName : '',
+    email : '',
+    password : '',
+    token : '',
+    connected : false
   },
   // reducers permet de définir les actions et le reducer
   reducers: {
     login: (state, action) => {
-      console.log(action)
-      state.email = action.payload.email
+      //console.log(action)
       state.token = action.payload.token
       state.connected = true
     },
     logout: (state) => {
       state.connected = false
       state.token = ''
-      state.user = {}
       localStorage.clear()
     },
     setUser: (state, action) => {
-      state.user = action.payload
+      state.firstName = action.payload.firstName
+      state.lastName = action.payload.lastName
+      state.email = action.payload.email
       state.connected = true
     },
     updateUser: (state, action) => {
-      state.user._firstName = action.payload._firstName
-      state.user._lastName = action.payload._lastName
+      state.firstName = action.payload.firstName
+      state.lastName = action.payload.lastName
     }
   }
 })

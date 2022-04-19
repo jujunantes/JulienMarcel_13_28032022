@@ -9,7 +9,7 @@ import axios from "axios"
 
 export default function Connexion() {
     const [donnees, modifDonnees] = useState({ email: '', password: '' })
-    const [erreur,setError]= useState("")
+    const [erreur, setErreur]= useState("")
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -20,10 +20,11 @@ export default function Connexion() {
             const url = 'http://localhost:3001/api/v1/user/login'
             const {data: res} = await axios.post(url, donnees)
             dispatch(login({...donnees, token:res.body.token }))
+            localStorage.setItem('JWTutilisateur', JSON.stringify(res.body.token))
             navigate('/profil')
-        } catch (error){
-            if(error.response && error.response.status >= 400 && error.response.status <= 500 ){
-                setError(error.response.data.message)
+        } catch (erreur){
+            if(erreur.response && (erreur.response.status >= 400) && (erreur.response.status <= 500) ){
+                setErreur(erreur.response.data.message)
             }
         }
     }
@@ -46,6 +47,7 @@ export default function Connexion() {
                     <div className="input-remember">
                         <input type="checkbox" id="remember-me" /><label htmlFor="remember-me">Remember me</label>
                     </div>
+                    {erreur && <div className="erreur">{'Erreur : ' + erreur}</div>}
                     <input
                         type="submit"
                         value="Sign In"
