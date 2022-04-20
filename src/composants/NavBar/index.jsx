@@ -10,12 +10,9 @@ import { logout } from '../../features/User/sliceUtilisateur'
 function NavBar() {
   const dispatch = useDispatch()
   const utilisateur = useSelector(state => state.user)
-  console.log('utilisateur NavBar :')
-  console.log(utilisateur)
 
   const deconnexion = () => {
     dispatch(logout())
-    console.log('deconnexion')
   }
 
     return (

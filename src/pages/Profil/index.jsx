@@ -10,8 +10,6 @@ function Profil() {
     const dispatch = useDispatch()
     const [chargement, setChargement] = useState(false)
     const utilisateur = useSelector(state => state.user)
-    console.log('utilisateur Profil :')
-    console.log(utilisateur)
     const token = utilisateur.token || JSON.parse(localStorage.getItem('JWTutilisateur'))
 
     useEffect(() => {
@@ -44,6 +42,38 @@ function Profil() {
                         <h1>Welcome back<br /> {utilisateur.firstName} {utilisateur.lastName}!</h1>
                         <button className="edit-button">Edit Name</button>
                     </div>
+                    {/* Placeholder data from the mockup */}
+                    <h2 class="sr-only">Accounts</h2>
+                    <section class="account">
+                        <div class="account-content-wrapper">
+                        <h3 class="account-title">Argent Bank Checking (x8349)</h3>
+                        <p class="account-amount">$2,082.79</p>
+                        <p class="account-amount-description">Available Balance</p>
+                        </div>
+                        <div class="account-content-wrapper cta">
+                        <button class="transaction-button">View transactions</button>
+                        </div>
+                    </section>
+                    <section class="account">
+                        <div class="account-content-wrapper">
+                        <h3 class="account-title">Argent Bank Savings (x6712)</h3>
+                        <p class="account-amount">$10,928.42</p>
+                        <p class="account-amount-description">Available Balance</p>
+                        </div>
+                        <div class="account-content-wrapper cta">
+                        <button class="transaction-button">View transactions</button>
+                        </div>
+                    </section>
+                    <section class="account">
+                        <div class="account-content-wrapper">
+                        <h3 class="account-title">Argent Bank Credit Card (x8349)</h3>
+                        <p class="account-amount">$184.30</p>
+                        <p class="account-amount-description">Current Balance</p>
+                        </div>
+                        <div class="account-content-wrapper cta">
+                        <button class="transaction-button">View transactions</button>
+                        </div>
+                    </section>
                 </section>
                 <PiedDePage />
             </div>
