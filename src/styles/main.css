@@ -283,6 +283,11 @@ body {
   color: #fff;
 }
 
+.erreurConnexion {
+  color: red;
+  padding: 1rem;
+}
+
 @media (min-width: 720px) {
   .account {
     flex-direction: row;

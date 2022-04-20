@@ -26,9 +26,8 @@ export default function Connexion() {
                 console.log('remember me')
             }
             navigate('/profil')
-        } catch (erreur){
-            if(erreur.response && (erreur.response.status >= 400) && (erreur.response.status <= 500) ){
-            }
+        } catch (error){
+            setErreur(error.message)
         }
     }
 
@@ -50,7 +49,7 @@ export default function Connexion() {
                     <div className="input-remember">
                         <input type="checkbox" id="remember-me" onClick={() => setRememberMe(!rememberMe)} /><label htmlFor="remember-me">Remember me</label>
                     </div>
-                    {erreur && <div className="erreur">{'Erreur : ' + erreur}</div>}
+                    {erreur && <div className="erreurConnexion">{'Error : ' + erreur}</div>}
                     <input
                         type="submit"
                         value="Sign In"

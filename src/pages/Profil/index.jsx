@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PiedDePage from "../../composants/PiedDePage"
-import Axios from 'axios'
+import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from '../../features/User/sliceUtilisateur'
@@ -9,14 +9,16 @@ function Profil() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [chargement, setChargement] = useState(false)
-    const token = JSON.parse(localStorage.getItem('JWTutilisateur'))
     const utilisateur = useSelector(state => state.user)
+    console.log('utilisateur Profil :')
+    console.log(utilisateur)
+    const token = utilisateur.token || JSON.parse(localStorage.getItem('JWTutilisateur'))
 
     useEffect(() => {
         const donneesUtilisateur = async () => {
             setChargement(true)
             try {
-                const {data: res} = await Axios.post('http://localhost:3001/api/v1/user/profile', null, {
+                const {data: res} = await axios.post('http://localhost:3001/api/v1/user/profile', null, {
                     headers: {
                     'Authorization': `Bearer ${token}` 
                     }
@@ -36,20 +38,17 @@ function Profil() {
   return (
       <div>
           {chargement ? (<div>Chargement...</div>) : (
-             <div>
-      <section className="main bg-dark">
-        <div className="header">
-            <h1>Welcome back<br /> {utilisateur.firstName} {utilisateur.lastName}!</h1>
-            <button className="edit-button">Edit Name</button>
-        </div>
-
-      </section>
-      <PiedDePage />
-    </div>
+            <div>
+                <section className="main bg-dark">
+                    <div className="header">
+                        <h1>Welcome back<br /> {utilisateur.firstName} {utilisateur.lastName}!</h1>
+                        <button className="edit-button">Edit Name</button>
+                    </div>
+                </section>
+                <PiedDePage />
+            </div>
         )}
-      </div>
-    
-   
+      </div>   
   )
 }
 
