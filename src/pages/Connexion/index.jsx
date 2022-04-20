@@ -9,6 +9,7 @@ import axios from "axios"
 
 export default function Connexion() {
     const [donnees, modifDonnees] = useState({ email: '', password: '' })
+    const [rememberMe, setRememberMe] = useState(false)
     const [erreur, setErreur]= useState("")
 
     const navigate = useNavigate()
@@ -19,12 +20,14 @@ export default function Connexion() {
         try{
             const url = 'http://localhost:3001/api/v1/user/login'
             const {data: res} = await axios.post(url, donnees)
-            dispatch(login({...donnees, token:res.body.token }))
-            localStorage.setItem('JWTutilisateur', JSON.stringify(res.body.token))
+            dispatch(login({...res, token:res.body.token }))
+            if (rememberMe){
+                localStorage.setItem('JWTutilisateur', JSON.stringify(res.body.token))
+                console.log('remember me')
+            }
             navigate('/profil')
         } catch (erreur){
             if(erreur.response && (erreur.response.status >= 400) && (erreur.response.status <= 500) ){
-                setErreur(erreur.response.data.message)
             }
         }
     }
@@ -45,7 +48,7 @@ export default function Connexion() {
                         <input type="password" name="password" id="password" onChange={event => modifDonnees({ ...donnees, [event.target.name]: event.target.value })} />
                     </div>
                     <div className="input-remember">
-                        <input type="checkbox" id="remember-me" /><label htmlFor="remember-me">Remember me</label>
+                        <input type="checkbox" id="remember-me" onClick={() => setRememberMe(!rememberMe)} /><label htmlFor="remember-me">Remember me</label>
                     </div>
                     {erreur && <div className="erreur">{'Erreur : ' + erreur}</div>}
                     <input
