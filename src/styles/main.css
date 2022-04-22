@@ -288,6 +288,10 @@ body {
   padding: 1rem;
 }
 
+.changeNom {
+  margin-left: 1rem;
+}
+
 @media (min-width: 720px) {
   .account {
     flex-direction: row;

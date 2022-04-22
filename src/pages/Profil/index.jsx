@@ -9,12 +9,33 @@ function Profil() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [chargement, setChargement] = useState(false)
+    const [edition, setEdition] = useState(false)
+    const [valeurs, setValeurs] = useState({})
     const utilisateur = useSelector(state => state.user)
     const token = utilisateur.token || JSON.parse(localStorage.getItem('JWTutilisateur'))
+    console.log('token :')
+    console.log(token)
+    
+
+    const clicEditName = () => {
+        console.log('edit name')
+        setEdition(!edition)
+        //window.location.reload(false)
+    }
+
+    const modifierNom = () => {
+        setEdition(!edition)
+        setValeurs({ ...valeurs, firstName: utilisateur.firstName, lastName: utilisateur.lastName })
+    }
 
     useEffect(() => {
+        if (token === null) {
+            navigate('/')
+        }
         const donneesUtilisateur = async () => {
             setChargement(true)
+            console.log('utilisateur profil :')
+            console.log(utilisateur)
             try {
                 const {data: res} = await axios.post('http://localhost:3001/api/v1/user/profile', null, {
                     headers: {
@@ -38,10 +59,39 @@ function Profil() {
           {chargement ? (<div>Chargement...</div>) : (
             <div>
                 <section className="main bg-dark">
-                    <div className="header">
+                    {edition ? (
+                        <div className="header">
+                            <h1>Edit your Name :</h1>
+                            <div className="input-area">
+                                <div className="input-wrapper">
+                                <label htmlFor="firstName"></label>
+                                <input
+                                    type="text"
+                                    id="firstName"
+                                    placeholder={utilisateur.firstName}
+                                    onChange={modifierNom}
+                                    className="account"
+                                />
+                                </div>
+                                <div className="input-wrapper">
+                                <label htmlFor="lastName"></label>
+                                <input
+                                    type="text"
+                                    id="lastName"
+                                    placeholder={utilisateur.lastName}
+                                    onChange={modifierNom}
+                                    className="account"
+                                />
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
+                      <div className="header">
                         <h1>Welcome back<br /> {utilisateur.firstName} {utilisateur.lastName}!</h1>
-                        <button className="edit-button">Edit Name</button>
-                    </div>
+                        <button className="edit-button" onClick={clicEditName}>Edit Name</button>
+                    </div>  
+                    )}
+                    
                     {/* Placeholder data from the mockup */}
                     <h2 className="sr-only">Accounts</h2>
                     <section className="account">
