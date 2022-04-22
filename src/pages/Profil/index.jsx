@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import PiedDePage from "../../composants/PiedDePage"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { setUser } from '../../features/User/sliceUtilisateur'
+import { setUser, updateUser } from '../../features/User/sliceUtilisateur'
 
 function Profil() {
     const navigate = useNavigate()
@@ -13,20 +13,66 @@ function Profil() {
     const [valeurs, setValeurs] = useState({})
     const utilisateur = useSelector(state => state.user)
     const token = utilisateur.token || JSON.parse(localStorage.getItem('JWTutilisateur'))
-    console.log('token :')
-    console.log(token)
+    const reffirstName = useRef('')
+    const reflastName = useRef('')
+    /*console.log('token :')
+    console.log(token)*/
     
 
     const clicEditName = () => {
         console.log('edit name')
         setEdition(!edition)
-        //window.location.reload(false)
     }
 
-    const modifierNom = () => {
-        setEdition(!edition)
-        setValeurs({ ...valeurs, firstName: utilisateur.firstName, lastName: utilisateur.lastName })
+    const modifierlastName = (e) => {
+        setValeurs({ ...valeurs, [e.target.name]: e.target.value })
+        /*console.log('valeurs :')
+        console.log(valeurs)*/
     }
+
+    const modifieUtilisateur = async (token, firstName, lastName) => {
+        console.log('modifieUtilisateur - token, firstName, lastName :')
+        console.log(token + ',' + firstName + ',' + lastName)
+        try {
+          const res = await axios.put(`http://localhost:3001/api/v1/user/profile`, {token, firstName, lastName}, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+              }
+            })
+          const donneesUtilisateur = JSON.stringify(res.data.body)
+          /*console.log('modifieUtilisateur - donneesUtilisateur :')
+          console.log(donneesUtilisateur)*/
+          return JSON.parse(donneesUtilisateur)
+        } catch (e) {
+          if (e.res) {
+            throw new Error(e.res.data.message)
+          }
+          throw new Error(`Error: ${e.message}`)
+        } 
+    }
+
+    const envoiNouveauNom = async (e) => {
+        e.preventDefault()
+        if (valeurs.firstName === utilisateur.firstName && valeurs.lastName === utilisateur.lastName) {
+            reffirstName.current.value = ''
+            reflastName.current.value = ''
+            return
+        }
+        try {
+            setChargement(true)
+            const res = await modifieUtilisateur(token, valeurs.firstName, valeurs.lastName)
+            /*console.log('envoiNouveauNom - res :')
+            console.log(res)*/
+            dispatch(updateUser(res))
+            setChargement(false)
+            setEdition(false)
+        } catch (e) {
+            console.log(e.message)
+        } finally {
+            reffirstName.current.value = ''
+            reflastName.current.value = ''
+        }
+      }
 
     useEffect(() => {
         if (token === null) {
@@ -62,14 +108,15 @@ function Profil() {
                     {edition ? (
                         <div className="header">
                             <h1>Edit your Name :</h1>
-                            <div className="input-area">
+                            <form onSubmit={envoiNouveauNom}>
                                 <div className="input-wrapper">
                                 <label htmlFor="firstName"></label>
                                 <input
                                     type="text"
-                                    id="firstName"
+                                    name="firstName"
                                     placeholder={utilisateur.firstName}
-                                    onChange={modifierNom}
+                                    ref={reffirstName}
+                                    onChange={modifierlastName}
                                     className="account"
                                 />
                                 </div>
@@ -77,13 +124,15 @@ function Profil() {
                                 <label htmlFor="lastName"></label>
                                 <input
                                     type="text"
-                                    id="lastName"
+                                    name="lastName"
                                     placeholder={utilisateur.lastName}
-                                    onChange={modifierNom}
+                                    ref={reflastName}
+                                    onChange={modifierlastName}
                                     className="account"
                                 />
                                 </div>
-                            </div>
+                                <button className="edit-button" >Change Name</button>
+                            </form>
                         </div>
                     ) : (
                       <div className="header">
