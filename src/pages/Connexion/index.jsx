@@ -24,7 +24,6 @@ export default function Connexion() {
             dispatch(login({...res, token:res.body.token }))
             if (rememberMe){
                 localStorage.setItem('JWTutilisateur', JSON.stringify(res.body.token))
-                console.log('remember me')
             }
             navigate('/profil')
         } catch (error){
