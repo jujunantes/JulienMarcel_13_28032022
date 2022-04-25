@@ -26,11 +26,15 @@ function NavBar() {
             <h1 className="sr-only">Argent Bank</h1>
           </Link>
             {utilisateur.connected ? (
-              <div>
+              <div className='profilNav'>
+                {(window.location.href.indexOf("profil") > -1) ? (
+                  <div className='main-nav-item'><i className="fa fa-user-circle"></i>
+                  {utilisateur.firstName}</div>
+                ) : ( 
                 <NavLink className="main-nav-item" to="profil">
                   <i className="fa fa-user-circle"></i>
                   {utilisateur.firstName}
-                </NavLink>
+                </NavLink>)}
                 <NavLink className="main-nav-item" to="" onClick={deconnexion}>
                   <i className="fa fa-sign-out"></i>
                   Sign Out
