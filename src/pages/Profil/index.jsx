@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
+import NavBar from '../../composants/NavBar'
 import PiedDePage from "../../composants/PiedDePage"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -89,82 +90,81 @@ function Profil() {
     }, [navigate, dispatch, token])
 
   return (
-      <div>
+      <div className='mainProfil'>
+          <NavBar />
           {chargement ? (<div>Chargement...</div>) : (
-            <div>
-                <section className="main bg-dark">
-                    {edition ? (
-                        <div className="header">
-                            <h1>Edit your Name :</h1>
-                            <form onSubmit={envoiNouveauNom}>
-                                <div className="input-wrapper">
-                                <label htmlFor="firstName"></label>
-                                <input
-                                    type="text"
-                                    name="firstName"
-                                    placeholder={utilisateur.firstName}
-                                    ref={refFirstName}
-                                    onChange={modifierNom}
-                                    className="account"
-                                />
-                                </div>
-                                <div className="input-wrapper">
-                                <label htmlFor="lastName"></label>
-                                <input
-                                    type="text"
-                                    name="lastName"
-                                    placeholder={utilisateur.lastName}
-                                    ref={refLastName}
-                                    onChange={modifierNom}
-                                    className="account"
-                                />
-                                </div>
-                                <button className="edit-button" >Change Name</button>
-                            </form>
-                        </div>
-                    ) : (
-                      <div className="header">
-                        <h1>Welcome back<br /> {utilisateur.firstName} {utilisateur.lastName}!</h1>
-                        <button className="edit-button" onClick={clicEditName}>Edit Name</button>
-                    </div>  
-                    )}
-                    
-                    {/* Placeholder data from the mockup */}
-                    <h2 className="sr-only">Accounts</h2>
-                    <section className="account">
-                        <div className="account-content-wrapper">
-                        <h3 className="account-title">Argent Bank Checking (x8349)</h3>
-                        <p className="account-amount">$2,082.79</p>
-                        <p className="account-amount-description">Available Balance</p>
-                        </div>
-                        <div className="account-content-wrapper cta">
-                        <button className="transaction-button">View transactions</button>
-                        </div>
-                    </section>
-                    <section className="account">
-                        <div className="account-content-wrapper">
-                        <h3 className="account-title">Argent Bank Savings (x6712)</h3>
-                        <p className="account-amount">$10,928.42</p>
-                        <p className="account-amount-description">Available Balance</p>
-                        </div>
-                        <div className="account-content-wrapper cta">
-                        <button className="transaction-button">View transactions</button>
-                        </div>
-                    </section>
-                    <section className="account">
-                        <div className="account-content-wrapper">
-                        <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
-                        <p className="account-amount">$184.30</p>
-                        <p className="account-amount-description">Current Balance</p>
-                        </div>
-                        <div className="account-content-wrapper cta">
-                        <button className="transaction-button">View transactions</button>
-                        </div>
-                    </section>
+            <section className="main bg-dark">
+                {edition ? (
+                    <div className="header">
+                        <h1>Edit your Name :</h1>
+                        <form onSubmit={envoiNouveauNom}>
+                            <div className="input-wrapper">
+                            <label htmlFor="firstName"></label>
+                            <input
+                                type="text"
+                                name="firstName"
+                                placeholder={utilisateur.firstName}
+                                ref={refFirstName}
+                                onChange={modifierNom}
+                                className="account"
+                            />
+                            </div>
+                            <div className="input-wrapper">
+                            <label htmlFor="lastName"></label>
+                            <input
+                                type="text"
+                                name="lastName"
+                                placeholder={utilisateur.lastName}
+                                ref={refLastName}
+                                onChange={modifierNom}
+                                className="account"
+                            />
+                            </div>
+                            <button className="edit-button" >Change Name</button>
+                        </form>
+                    </div>
+                ) : (
+                    <div className="header">
+                    <h1>Welcome back<br /> {utilisateur.firstName} {utilisateur.lastName}!</h1>
+                    <button className="edit-button" onClick={clicEditName}>Edit Name</button>
+                </div>  
+                )}
+                
+                {/* Placeholder data from the mockup */}
+                <h2 className="sr-only">Accounts</h2>
+                <section className="account">
+                    <div className="account-content-wrapper">
+                    <h3 className="account-title">Argent Bank Checking (x8349)</h3>
+                    <p className="account-amount">$2,082.79</p>
+                    <p className="account-amount-description">Available Balance</p>
+                    </div>
+                    <div className="account-content-wrapper cta">
+                    <button className="transaction-button">View transactions</button>
+                    </div>
                 </section>
-                <PiedDePage />
-            </div>
+                <section className="account">
+                    <div className="account-content-wrapper">
+                    <h3 className="account-title">Argent Bank Savings (x6712)</h3>
+                    <p className="account-amount">$10,928.42</p>
+                    <p className="account-amount-description">Available Balance</p>
+                    </div>
+                    <div className="account-content-wrapper cta">
+                    <button className="transaction-button">View transactions</button>
+                    </div>
+                </section>
+                <section className="account">
+                    <div className="account-content-wrapper">
+                    <h3 className="account-title">Argent Bank Credit Card (x8349)</h3>
+                    <p className="account-amount">$184.30</p>
+                    <p className="account-amount-description">Current Balance</p>
+                    </div>
+                    <div className="account-content-wrapper cta">
+                    <button className="transaction-button">View transactions</button>
+                    </div>
+                </section>
+            </section>
         )}
+        <PiedDePage />
       </div>   
   )
 }

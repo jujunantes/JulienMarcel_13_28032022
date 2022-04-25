@@ -1,3 +1,4 @@
+import NavBar from '../../composants/NavBar'
 import PiedDePage from "../../composants/PiedDePage"
 import '../../styles/main.css'
 import { login } from '../../features/User/sliceUtilisateur'
@@ -33,6 +34,7 @@ export default function Connexion() {
 
   return (
     <div className="mainConnexion">
+        <NavBar />
         <main className="main bg-dark">
             <section className="sign-in-content">
                 <i className="fa fa-user-circle sign-in-icon"></i>
