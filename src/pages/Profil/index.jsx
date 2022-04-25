@@ -125,7 +125,7 @@ function Profil() {
                     </div>
                 ) : (
                     <div className="header">
-                    <h1>Welcome back<br /> {utilisateur.firstName} {utilisateur.lastName}!</h1>
+                    <h1 className='titreProfil'>Welcome back<br /> {utilisateur.firstName} {utilisateur.lastName}!</h1>
                     <button className="edit-button" onClick={clicEditName}>Edit Name</button>
                 </div>  
                 )}
