@@ -76,4 +76,4 @@ When at the home page you can click on the log-in button and enter any of those 
 - Password: `password456`
 
 The chosen user's mocked data will then be displayed.
-You can edit the user's first and last names by clicking on the "dit name" button.
+You can edit the user's first and last names by clicking on the "edit name" button.
