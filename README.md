@@ -14,6 +14,7 @@ In order to get this project running you'll first need to make sure that the fol
 This project also uses the following dependencies, but they'll get installed automatically later on (see part #3) :
 - react-router and react-router-dom: [v6.2.1](https://reactrouter.com/)
 - react-bootstrap: [v5.1.3](https://react-bootstrap.github.io/)
+- react-redux: [v7.2.8](https://react-redux.js.org/)
 - redux toolkit: [v1.8.1](https://redux-toolkit.js.org/)
 - axios: [v0.26.1](https://github.com/axios/axios)
 
@@ -50,14 +51,26 @@ npm install
 npm run start
 ```
 
-## 4. using Argent Bank
+## 4. Using Argent Bank
+
+### 4.1 Features
+Argent banks implements the features listed in [the back-end API's issues section](https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API/tree/master/.github/ISSUE_TEMPLATE):
+- the user can navigate to the home page (/) and see all placeholder data from mockup;
+- the user can navigate to the login page (/login), fill out credentials, login to the back-end API with JWT tokens for authentication, and successfully navigate to a profile page (/profile);
+- the user can see the logout button when logged in, click the logout button, be returned to the home page (/);
+- After successfully logging in, the user can see his profile page, see his first name on the profile page, see placeholder bank account information;
+- The React app contains an implementation of Redux for state management that has a store to manage all of the data, action(s) for sending information, reducer(s) for handling application state changes;
+- The user can edit his profile (first name and last name, this data being persisted into ythe database).
+
+### 4.2 Loging in
+
 When at the home page you can click on the log-in button and enter any of those two credentials :
-### Tony Stark
+#### Tony Stark
 
 - Email: `tony@stark.com`
 - Password: `password123`
 
-### Steve Rogers
+#### Steve Rogers
 
 - Email: `steve@rogers.com`,
 - Password: `password456`
