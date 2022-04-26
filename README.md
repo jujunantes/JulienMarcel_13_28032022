@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+![CreatedBy](https://img.shields.io/static/v1?label=Created%20by&message=Julien%20MARCEL&color&style=flat)
+![BuiltWith](https://img.shields.io/static/v1?label=Built%20with&message=React_v17.0.2&color=blue&style=flat&logo=createreactapp)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Argent Bank : an authentication system for a bank
+Argent bank is an front-end interface that allows a user to log to a back-end, access his data and edit his name.
+![ScreenShot](https://github.com/jujunantes/JulienMarcel_13_28032022/raw/master/src/medias/capture.png)
 
-## Available Scripts
+## 1. Prerequisites
+In order to get this project running you'll first need to make sure that the following packages are installed on your computer :
+- NodeJS [(version 12.18 or newer)](https://nodejs.org/en/)
+- [Yarn](https://yarnpkg.com/)
+- Optionnaly, if you need to read or edit this project's files, you'll need to use a good text editor like [Sublime Text](https://www.sublimetext.com/) or [Atom](https://atom.io/). This project was developped using the excellent IDE [Visual Code](https://code.visualstudio.com/).
 
-In the project directory, you can run:
+This project also uses the following dependencies, but they'll get installed automatically later on (see part #3) :
+- react-router and react-router-dom: [v6.2.1](https://reactrouter.com/)
+- react-bootstrap: [v5.1.3](https://react-bootstrap.github.io/)
+- redux toolkit: [v1.8.1](https://redux-toolkit.js.org/)
+- axios: [v0.26.1](https://github.com/axios/axios)
 
-### `npm start`
+## 2. Installing the backend
+Argent Bank makes use of a REST API that you first need to install. In order to do so:
+- download the sources from [its github repository](https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API).
+- then, in a console, enter the following commands :
+```sh
+cd <Your Path>\Project-10-Bank-API-master
+# Install dependencies
+npm install
+# Start local dev server
+npm run dev:server
+# Populate database with two users
+npm run populate-db
+```
+The REST API will then get served locally on your computer at port 3001.
+You can then visit [its documentation](http://localhost:3001/api-docs) to learn about its endpoints
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 3. Installing Argent Bank
+Argent Bank's installation is straightforward :
+- download the sources from [its github repository](https://github.com/jujunantes/JulienMarcel_13_28032022).
+- then, in a console, enter the following commands :
+```sh
+cd <Your Path>\JulienMarcel_13_28032022-master
+yarn
+yarn start
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Alternatively, you can enter the following commands :
+```sh
+cd <Your Path>\JulienMarcel_13_28032022-master
+npm install
+npm run start
+```
 
-### `npm test`
+## 4. using Argent Bank
+When at the home page you can click on the log-in button and enter any of those two credentials :
+### Tony Stark
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Email: `tony@stark.com`
+- Password: `password123`
 
-### `npm run build`
+### Steve Rogers
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Email: `steve@rogers.com`,
+- Password: `password456`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The chosen user's mocked data will then be displayed.
+You can edit the user's first and last names by clicking on the "dit name" button.
